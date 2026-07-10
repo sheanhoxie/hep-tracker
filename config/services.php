@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'healthchecks' => [
+        'scheduler' => env('HC_SCHEDULER_URL'),
+        'queue' => env('HC_QUEUE_URL'),
+    ],
+
 ];
