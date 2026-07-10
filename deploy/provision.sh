@@ -7,7 +7,7 @@ set -euo pipefail
 DOMAIN=example.com
 APP_DIR=/var/www/hep
 DEPLOY_USER=deploy
-PHP=8.3
+PHP=8.4
 
 [ "$(id -u)" -eq 0 ] || { echo "run as root" >&2; exit 1; }
 grep -q 'Ubuntu 24.04' /etc/os-release || { echo "expected Ubuntu 24.04" >&2; exit 1; }
@@ -40,6 +40,9 @@ apt-get install -yq unattended-upgrades
 dpkg-reconfigure -f noninteractive unattended-upgrades
 
 # --- runtime (B3) ---
+# PHP 8.4 via ondrej PPA: composer.lock is resolved on 8.4 (dev + CI); 24.04 ships only 8.3
+add-apt-repository -y ppa:ondrej/php
+apt-get update -q
 apt-get install -yq \
     php$PHP-fpm php$PHP-pgsql php$PHP-mbstring php$PHP-xml php$PHP-curl \
     php$PHP-zip php$PHP-intl php$PHP-gd php$PHP-bcmath \

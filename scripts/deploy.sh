@@ -7,7 +7,7 @@ set -euo pipefail
 REPO=git@github.com:YOURUSER/video-workout-app.git
 BRANCH=main
 APP=/var/www/hep
-PHP=php8.3
+PHP=php8.4
 KEEP=3
 
 TS=$(date +%Y%m%d%H%M%S)
