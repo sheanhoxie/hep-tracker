@@ -6,6 +6,12 @@ import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import { initializeTheme } from './composables/useAppearance';
+import { resyncPush } from './lib/push';
+
+interface PushProps {
+    reminder_enabled: boolean;
+    vapid_public_key: string;
+}
 
 // Extend ImportMeta interface for Vite...
 declare module 'vite/client' {
@@ -30,6 +36,15 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue)
             .mount(el);
+
+        // iOS drops push subscriptions silently — self-heal on every launch
+        // (DEPLOY.md F6). No-op unless the reminder is on and permission granted.
+        const push = props.initialPage.props.push as PushProps | undefined;
+        if (push?.reminder_enabled && push.vapid_public_key) {
+            void navigator.serviceWorker?.ready.then(() =>
+                resyncPush(push.vapid_public_key).catch((e: unknown) => console.warn('push resync failed', e)),
+            );
+        }
     },
     progress: {
         color: '#4B5563',

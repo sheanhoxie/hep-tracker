@@ -45,6 +45,13 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            // iOS drops push subscriptions silently (DEPLOY.md F6) — every page
+            // load carries what the client needs to self-heal its subscription
+            'push' => [
+                'reminder_enabled' => (bool) $request->user()?->reminders()
+                    ->where('kind', 'daily_nudge')->where('enabled', true)->exists(),
+                'vapid_public_key' => (string) config('webpush.vapid.public_key'),
+            ],
         ]);
     }
 }

@@ -41,7 +41,13 @@ class DashboardController extends Controller
 
         return Inertia::render('Dashboard', [
             'due_count' => $due->count(),
-            'reminder' => $nudge === null ? null : ['enabled' => $nudge->enabled, 'time' => $nudge->schedule],
+            'reminder' => $nudge === null ? null : [
+                'enabled' => $nudge->enabled,
+                'time' => $nudge->schedule,
+                // a dead iOS subscription is silent (DEPLOY.md F6) — a stale
+                // "last sent" is the one user-visible signal something's wrong
+                'last_sent_at' => $nudge->last_sent_at?->timezone(config('app.timezone'))->format('D M j, g:i A'),
+            ],
             'vapid_public_key' => (string) config('webpush.vapid.public_key'),
             'weekly' => $weekly,
             'streak_days' => $this->streak($user->id, $today),

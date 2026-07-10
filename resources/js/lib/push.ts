@@ -52,6 +52,30 @@ export async function enablePush(vapidPublicKey: string): Promise<boolean> {
     return true;
 }
 
+/**
+ * Self-heals the push subscription on app launch (DEPLOY.md F6): iOS drops
+ * subscriptions silently, and the server deletes rows on 410. Permission is
+ * already granted here, so re-subscribing never prompts; the server upserts
+ * by endpoint, so re-POSTing an unchanged subscription is a no-op.
+ */
+export async function resyncPush(vapidPublicKey: string): Promise<void> {
+    if (!pushSupported() || Notification.permission !== 'granted') return;
+
+    const registration = await navigator.serviceWorker.ready;
+    let subscription = await registration.pushManager.getSubscription();
+    if (!subscription) {
+        subscription = await registration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(vapidPublicKey) as BufferSource,
+        });
+    }
+
+    const json = subscription.toJSON();
+    if (!json.endpoint || !json.keys) return;
+
+    await send('POST', { endpoint: json.endpoint, keys: json.keys });
+}
+
 /** Unsubscribes the browser and removes the subscription server-side. */
 export async function disablePush(): Promise<void> {
     if (!pushSupported()) return;

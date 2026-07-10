@@ -24,7 +24,7 @@ const props = defineProps<{
     streak_days: number;
     pain_series: PainPoint[];
     recent_sessions: RecentSession[];
-    reminder: { enabled: boolean; time: string } | null;
+    reminder: { enabled: boolean; time: string; last_sent_at: string | null } | null;
     vapid_public_key: string;
 }>();
 
@@ -168,6 +168,9 @@ const statusClasses: Record<RecentSession['status'], string> = {
                     </div>
                 </div>
                 <p v-if="reminderError" class="mt-2 text-sm text-rose-600 dark:text-rose-400">{{ reminderError }}</p>
+                <p v-if="reminderEnabled" class="mt-2 text-xs text-muted-foreground" data-testid="reminder-last-sent">
+                    {{ props.reminder?.last_sent_at ? `Last nudge: ${props.reminder.last_sent_at}` : 'No nudge sent yet.' }}
+                </p>
             </div>
 
             <div class="rounded-xl border border-sidebar-border/70 p-5 dark:border-sidebar-border">
