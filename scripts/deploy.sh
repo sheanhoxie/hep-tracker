@@ -20,11 +20,12 @@ cd "$NEW"
 ln -sfn $APP/shared/.env .env
 rm -rf storage && ln -sfn $APP/shared/storage storage
 
+composer install --no-dev --optimize-autoloader --no-interaction
+
 # first run only: generate the keys the .env skeleton left blank
+# (after composer install — artisan needs vendor/autoload.php)
 grep -q '^APP_KEY=.\+' $APP/shared/.env || php artisan key:generate --force
 grep -q '^VAPID_PUBLIC_KEY=.\+' $APP/shared/.env || php artisan webpush:vapid
-
-composer install --no-dev --optimize-autoloader --no-interaction
 npm ci --no-audit --no-fund
 npm run build
 rm -rf node_modules   # build-time only; ~300M of disk per release otherwise
