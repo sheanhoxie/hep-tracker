@@ -8,7 +8,7 @@ Scaffolded 2026-07-08. Laravel app with domain migrations, models, seeder, and P
 
 ## Stack (decided 2026-07-08 — see stack-decisions.md for rationale and binding architecture rules)
 
-Laravel 13 (PHP 8.3+) · Inertia 3 + Vue 3 · Postgres · Vite/Tailwind · Pest + Vitest + Playwright · single VPS · PWA with web-push reminders in v1. The session player is an offline-tolerant island: server materializes expanded step lists, client executes and queues writes to IndexedDB with idempotency keys, timers recompute from timestamps.
+Laravel 13 (PHP 8.4+) · Inertia 3 + Vue 3 · Postgres · Vite/Tailwind · Pest + Vitest + Playwright · single VPS · PWA with web-push reminders in v1. The session player is an offline-tolerant island: server materializes expanded step lists, client executes and queues writes to IndexedDB with idempotency keys, timers recompute from timestamps.
 
 ## Source of Truth
 

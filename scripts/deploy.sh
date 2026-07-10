@@ -10,6 +10,10 @@ APP=/var/www/hep
 PHP=php8.4
 KEEP=3
 
+# preflight: fail before cloning, not mid-release
+php -r 'exit(PHP_VERSION_ID >= 80401 ? 0 : 1);' || { echo "deploy needs PHP >= 8.4.1 (composer.lock floor); /usr/bin/php is $(php -r 'echo PHP_VERSION;')" >&2; exit 1; }
+[ -S /run/php/$PHP-fpm.sock ] || { echo "$PHP-fpm socket missing — is $PHP-fpm running?" >&2; exit 1; }
+
 TS=$(date +%Y%m%d%H%M%S)
 NEW=$APP/releases/$TS
 PREV=$(readlink -f $APP/current 2>/dev/null || true)

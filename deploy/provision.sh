@@ -36,17 +36,31 @@ ufw --force enable
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -q
-apt-get install -yq unattended-upgrades
+apt-get install -yq unattended-upgrades software-properties-common
 dpkg-reconfigure -f noninteractive unattended-upgrades
 
 # --- runtime (B3) ---
-# PHP 8.4 via ondrej PPA: composer.lock is resolved on 8.4 (dev + CI); 24.04 ships only 8.3
+# PHP 8.4 via ondrej PPA: composer.lock is resolved on 8.4 (dev + CI); 24.04 ships only 8.3.
+# Versioned php8.4-* names only — the PPA's unversioned php-* metapackages already target 8.5.
+# Exit ramp: on Ubuntu 26.04, ppa-purge ondrej/php and return to distro PHP.
 add-apt-repository -y ppa:ondrej/php
 apt-get update -q
-apt-get install -yq \
-    php$PHP-fpm php$PHP-pgsql php$PHP-mbstring php$PHP-xml php$PHP-curl \
+apt-get install -yq -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold \
+    php$PHP-cli php$PHP-fpm php$PHP-pgsql php$PHP-mbstring php$PHP-xml php$PHP-curl \
     php$PHP-zip php$PHP-intl php$PHP-gd php$PHP-bcmath \
     nginx postgresql-16 git jq
+
+# pin the CLI deterministically — the systemd unit, cron, and deploy.sh all call bare php
+update-alternatives --set php /usr/bin/php$PHP
+php -v | grep -q "^PHP $PHP" || { echo "/usr/bin/php is not $PHP" >&2; exit 1; }
+
+# unattended-upgrades ignores PPA origins by default — without this, PHP silently
+# stops receiving security patches after the switch to the ondrej packages
+cat > /etc/apt/apt.conf.d/51ondrej-php <<'EOF'
+Unattended-Upgrade::Allowed-Origins {
+    "LP-PPA-ondrej-php:${distro_codename}";
+};
+EOF
 
 curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
 apt-get install -yq nodejs
@@ -61,9 +75,13 @@ ln -sf /snap/bin/certbot /usr/bin/certbot
 php -m | grep -qi '^Zend OPcache$' || echo "WARNING: opcache not enabled — investigate before go-live" >&2
 
 # --- Postgres (B4): scoped role, localhost only (24.04 default already localhost) ---
-DB_PASS=$(openssl rand -base64 24 | tr -d '/+=')
-sudo -u postgres psql -tc "SELECT 1 FROM pg_roles WHERE rolname='hep'" | grep -q 1 || \
+DB_PASS=""
+DB_PASS_NOTE="unchanged (pre-existing role; password already in shared/.env)"
+if ! sudo -u postgres psql -tc "SELECT 1 FROM pg_roles WHERE rolname='hep'" | grep -q 1; then
+    DB_PASS=$(openssl rand -base64 24 | tr -d '/+=')
     sudo -u postgres psql -c "CREATE ROLE hep LOGIN PASSWORD '$DB_PASS'"
+    DB_PASS_NOTE="$DB_PASS"
+fi
 sudo -u postgres psql -tc "SELECT 1 FROM pg_database WHERE datname='hep_production'" | grep -q 1 || \
     sudo -u postgres createdb -O hep hep_production
 
@@ -74,6 +92,12 @@ chgrp -R www-data $APP_DIR/shared/storage
 chmod -R g+w $APP_DIR/shared/storage
 
 if [ ! -f $APP_DIR/shared/.env ]; then
+# role exists from a prior run but .env is gone: reset the password so they match
+if [ -z "$DB_PASS" ]; then
+    DB_PASS=$(openssl rand -base64 24 | tr -d '/+=')
+    sudo -u postgres psql -c "ALTER ROLE hep PASSWORD '$DB_PASS'"
+    DB_PASS_NOTE="$DB_PASS (reset — role predated missing .env)"
+fi
 cat > $APP_DIR/shared/.env <<EOF
 APP_NAME=HEP
 APP_ENV=production
@@ -127,6 +151,10 @@ sed -i \
 systemctl reload php$PHP-fpm
 
 # --- nginx vhost (B5): HTTP only; certbot --nginx adds TLS + redirect (D2) ---
+# Never clobber a certbot-managed vhost on re-run
+if grep -q ssl_certificate /etc/nginx/sites-available/$DOMAIN 2>/dev/null; then
+    echo "vhost already TLS-managed by certbot — skipping vhost write"
+else
 cat > /etc/nginx/sites-available/$DOMAIN <<EOF
 server {
     listen 80;
@@ -173,6 +201,7 @@ server {
     }
 }
 EOF
+fi
 ln -sf /etc/nginx/sites-available/$DOMAIN /etc/nginx/sites-enabled/$DOMAIN
 rm -f /etc/nginx/sites-enabled/default
 nginx -t && systemctl reload nginx
@@ -231,7 +260,7 @@ echo "1. Add this read-only deploy key to github.com/YOURUSER/video-workout-app 
 echo
 cat /home/$DEPLOY_USER/.ssh/id_ed25519.pub
 echo
-echo "2. DB password written into $APP_DIR/shared/.env (also shown once here): $DB_PASS"
+echo "2. DB password: $DB_PASS_NOTE"
 echo "3. First deploy (as $DEPLOY_USER): bash scripts/deploy.sh   — generates APP_KEY + VAPID keys on first run"
 echo "4. TLS (D2): certbot --nginx -d $DOMAIN"
 echo "5. Back up shared/.env off-box, encrypted (F1) — it now holds the only DB password + soon APP_KEY/VAPID"

@@ -6,7 +6,7 @@ Decided 2026-07-08 via /plan-eng-review (3 review questions + adversarial outsid
 
 | Layer | Choice | Rejected | Why |
 |-------|--------|----------|-----|
-| Backend | Laravel 13 (PHP 8.3+) | Go, .NET/EF Core | Strongest daily stack; DDL ports 1:1 to migrations; scheduler, notifications, Flysystem, auth built-in |
+| Backend | Laravel 13 (PHP 8.4+) | Go, .NET/EF Core | Strongest daily stack; DDL ports 1:1 to migrations; scheduler, notifications, Flysystem, auth built-in |
 | Frontend | Inertia 3 + Vue 3 | Livewire 4, separate SPA+API | Session player is client-state-heavy (timers, wake-lock, video); one paradigm everywhere; npm ecosystem |
 | Database | Postgres | SQLite, MySQL | DDL and derived views port verbatim; two-sided future free. Ops cost priced in via hosting decision below |
 | Media | Flysystem local disk → S3-compatible swap later (R2/Bunny) | — | One `composer require` + config (see §NOT in scope correction); v1 plays stock videos only |
