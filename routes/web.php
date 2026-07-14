@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\ExerciseController as AdminExerciseController;
+use App\Http\Controllers\Admin\ExerciseMediaController as AdminExerciseMediaController;
+use App\Http\Controllers\Admin\ProgramController as AdminProgramController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LibraryController;
@@ -40,6 +43,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('sessions/{workoutSession}/items/{item}', [SessionItemController::class, 'update'])->name('sessions.items.update');
         Route::post('sessions/{workoutSession}/items/{item}/set-events', [SetEventController::class, 'store'])->name('sessions.set-events.store');
     });
+});
+
+// Content management: manager-only (CONTENT-ADMIN.md W1). Patients get 403.
+Route::middleware(['auth', 'verified', 'can:manage-content'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('exercises', [AdminExerciseController::class, 'index'])->name('exercises.index');
+    Route::get('exercises/create', [AdminExerciseController::class, 'create'])->name('exercises.create');
+    Route::post('exercises', [AdminExerciseController::class, 'store'])->name('exercises.store');
+    Route::get('exercises/{exercise:slug}/edit', [AdminExerciseController::class, 'edit'])->name('exercises.edit');
+    Route::patch('exercises/{exercise:slug}', [AdminExerciseController::class, 'update'])->name('exercises.update');
+    Route::delete('exercises/{exercise:slug}', [AdminExerciseController::class, 'destroy'])->name('exercises.destroy');
+
+    Route::post('exercises/{exercise:slug}/media', [AdminExerciseMediaController::class, 'store'])->name('exercises.media.store');
+    Route::scopeBindings()->group(function () {
+        Route::delete('exercises/{exercise:slug}/media/{media}', [AdminExerciseMediaController::class, 'destroy'])->name('exercises.media.destroy');
+    });
+
+    Route::get('program', [AdminProgramController::class, 'edit'])->name('program.edit');
+    Route::put('program', [AdminProgramController::class, 'update'])->name('program.update');
 });
 
 require __DIR__.'/settings.php';

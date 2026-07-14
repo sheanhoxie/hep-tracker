@@ -1,4 +1,8 @@
-const CACHE = 'hep-shell-v1';
+const CACHE = 'hep-shell-v2';
+
+// /storage/exercise-media/: cache IMAGES only. Videos (≤100MB each) would fill
+// the never-pruned CacheStorage and blow the iOS quota (CONTENT-ADMIN.md 5A).
+const MEDIA_IMAGE = /^\/storage\/exercise-media\/.+\.(svg|png|jpe?g)$/i;
 
 self.addEventListener('install', () => {
     self.skipWaiting();
@@ -17,7 +21,12 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
     if (event.request.method !== 'GET' || url.origin !== self.location.origin) return;
-    if (!url.pathname.startsWith('/build/') && !url.pathname.startsWith('/thumbs/') && !url.pathname.startsWith('/icons/')) return;
+    const cacheable =
+        url.pathname.startsWith('/build/') ||
+        url.pathname.startsWith('/thumbs/') ||
+        url.pathname.startsWith('/icons/') ||
+        MEDIA_IMAGE.test(url.pathname);
+    if (!cacheable) return;
 
     event.respondWith(
         caches.open(CACHE).then(async (cache) => {

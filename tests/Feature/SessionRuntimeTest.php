@@ -11,7 +11,8 @@ use Illuminate\Support\Str;
 beforeEach(function () {
     $this->seed(HepProgramSeeder::class);
     $this->patient = User::where('email', 'patient@example.com')->firstOrFail();
-    $this->version = $this->patient->programs()->firstOrFail()->currentVersion;
+    $this->version = $this->patient->programs()->firstOrFail()
+        ->currentVersion()->with('prescriptions.exercise')->firstOrFail();
 });
 
 function startSession($test): WorkoutSession

@@ -7,6 +7,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Prescription extends Model
 {
+    /**
+     * The single source for every dosage field. Consumers: revision copy logic
+     * (ProgramRevisionService), the admin grid props, and its validation rules —
+     * a column added here propagates to all three (CONTENT-ADMIN.md decision 7A).
+     */
+    public const DOSAGE_COLUMNS = [
+        'sets', 'reps', 'hold_sec', 'eccentric_sec', 'rest_sec',
+        'per_side', 'to_fatigue', 'duration_sec',
+        'frequency_kind', 'times_per_week', 'time_of_day',
+        'sort_order', 'notes',
+    ];
+
     public $timestamps = false;
 
     protected $fillable = [

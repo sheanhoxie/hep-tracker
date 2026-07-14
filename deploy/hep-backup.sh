@@ -52,7 +52,17 @@ BYTES=$(rclone size --json "$DB_OBJ" | jq -r .bytes)
 "${GPG[@]}" --symmetric --cipher-algo AES256 --output - /var/www/hep/shared/.env \
     | rclone rcat "$ENV_OBJ"
 
-# retention: 30d dumps, 90d env history
+# uploaded exercise media (CONTENT-ADMIN.md 4A): the only copy lives in
+# shared/storage — a DB restore without these files leaves every media URL dead.
+# copy, not sync: an accidental in-app delete must not propagate to the backup.
+# Unencrypted by design: stock demo videos, no personal data (revisit if the
+# form_check pipeline ever lands — those ARE sensitive, DEPLOY.md E5).
+MEDIA_DIR=/var/www/hep/shared/storage/app/public
+if [ -d "$MEDIA_DIR" ]; then
+    rclone copy "$MEDIA_DIR" "$RCLONE_REMOTE/media/" 2>> "$LOG"
+fi
+
+# retention: 30d dumps, 90d env history (media/ is copy-forever; prune manually)
 rclone delete --min-age 30d "$RCLONE_REMOTE/db/" 2>> "$LOG" || true
 rclone delete --min-age 90d "$RCLONE_REMOTE/env/" 2>> "$LOG" || true
 

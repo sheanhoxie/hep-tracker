@@ -67,11 +67,27 @@ Ordered path. Each phase is shippable/testable on its own. Matches v1 sequencing
 - **Context:** v1 ships stock-video playback only; recording/upload is deferred. Start point: swap Flysystem to S3-compatible host (R2 or Bunny), add chunked upload (e.g. tus or resumable-js), transcode via queued ffmpeg job, serve via signed URLs. Added 2026-07-08 from /plan-eng-review outside-voice finding.
 - **Depends on / blocked by:** Media storage swap to external host; v1 player shipped.
 
-## Program-revision interface
+## Program-revision interface — SUPERSEDED by CONTENT-ADMIN.md (2026-07-12)
 
-- **What:** Tooling for "the PT revised the program": create new `program_version`, copy-forward prescription rows, modify, set `effective_from`, close prior version. Artisan command first (`program:revise`), UI later.
-- **Why:** The immutable-versioning core of the data model has no interface — until this exists, a revision means hand-written SQL.
-- **Pros:** Makes the versioning design usable; copy-forward is the one non-trivial write path in the app.
-- **Cons:** Not needed until the program actually changes; premature before then.
-- **Context:** v1 seeds the initial (sample date) program via seeder. When building this, settle the open decision from hep-data-model.md: does a new version carry over the current week's already-earned weekly completions (doc leans carry-over, matched on exercise_id). Added 2026-07-08 from /plan-eng-review.
-- **Depends on / blocked by:** Core models + seeder existing.
+- **What:** Built as `ProgramRevisionService` + `/admin/program` grid in the content-admin plan (reviewed /plan-eng-review 2026-07-11/12). Carry-over decision SETTLED: both grains (daily + weekly), matched on exercise_id, deduped by date. Remaining stub only: optional `program:revise` CLI wrapper (~20 lines around the service).
+- **Why (stub):** SSH-only revision path when no browser is handy.
+- **Context:** Service is the engine; wrapper is sugar. See CONTENT-ADMIN.md W4 for invariants (parent lock, base_version_no, effective_from always today, empty-window supersede).
+- **Depends on / blocked by:** CONTENT-ADMIN.md implementation shipped.
+
+## Future-dated revisions (staged program changes)
+
+- **What:** Allow `effective_from > today` on a revision: pending-version banner on the admin grid, amend-pending flow, "current vs pending" resolution rules.
+- **Why:** Review decision 2A (2026-07-11) deliberately forbade future-dating — effective_from is always today — because pending-version semantics (what does the grid show? how do you amend before activation?) weren't worth defining for a use case that hasn't occurred. If the PT ever hands over a dated program ("start this Monday"), this is the feature.
+- **Pros:** Staged changes without a revision-day sit-down; the empty-window supersede mechanics (already built) handle cancelling a pending version cleanly.
+- **Cons:** Two divergent notions of "current version" (whereNull vs date-effective) must be reconciled in the UI; speculative until a real dated handover happens.
+- **Context:** Added 2026-07-12 from /plan-eng-review of CONTENT-ADMIN.md (decision 2A + outside-voice finding on pending-version ambiguity). Start point: grid shows date-effective current with pending banner; revise() locks the whereNull row; superseding a pending version empties its window.
+- **Depends on / blocked by:** CONTENT-ADMIN.md revision engine shipped.
+
+## Region/pattern taxonomy cleanup
+
+- **What:** Normalize `body_region` / `movement_pattern` free text into a curated vocabulary once PT verification settles the content; update Library chip grouping.
+- **Why:** Review decision 6A (2026-07-11) validated these as free text because prod holds 17 distinct movement_pattern values vs the 5 the schema comment claims — a data migration mid-feature was wrong. Known accepted cost: chips fragment as variants accumulate.
+- **Pros:** Clean filterable Library categories; kills the stale 5-value schema comment.
+- **Cons:** Relabeling judgment calls on 17+ values; pointless before the vocabulary stabilizes.
+- **Context:** Added 2026-07-12 from /plan-eng-review. Data lives in `exercises.body_region/movement_pattern`; seeded from hep-exercises.json `region`/`pattern` fields. One UPDATE migration + comment fix when ready.
+- **Depends on / blocked by:** PT verification of content (Phase 1 deferred item); admin CRUD shipped (edit surface for the cleanup).

@@ -7,7 +7,7 @@ interface DueItem {
     prescription_id: number;
     exercise_slug: string;
     exercise_name: string;
-    thumb: string;
+    thumb: string | null;
     dosage: string;
     cadence: 'daily' | 'weekly';
     remaining_this_week: number | null;
@@ -61,9 +61,7 @@ const weekly = props.due.filter((item) => item.cadence === 'weekly');
                 </button>
             </div>
 
-            <p v-if="due.length === 0" class="text-muted-foreground">
-                All done for today. 🎉
-            </p>
+            <p v-if="due.length === 0" class="text-muted-foreground">All done for today. 🎉</p>
 
             <section v-if="daily.length > 0" class="flex flex-col gap-2">
                 <h2 class="text-sm font-medium uppercase tracking-wide text-muted-foreground">Daily</h2>
@@ -73,7 +71,8 @@ const weekly = props.due.filter((item) => item.cadence === 'weekly');
                         :key="item.prescription_id"
                         class="flex items-center gap-3 rounded-xl border border-sidebar-border/70 p-3 dark:border-sidebar-border"
                     >
-                        <img :src="item.thumb" :alt="item.exercise_name" class="h-12 w-12 shrink-0 rounded-lg" />
+                        <img v-if="item.thumb" :src="item.thumb" :alt="item.exercise_name" class="h-12 w-12 shrink-0 rounded-lg" />
+                        <div v-else class="h-12 w-12 shrink-0 rounded-lg bg-muted" />
                         <div>
                             <div class="font-medium">{{ item.exercise_name }}</div>
                             <div class="text-sm text-muted-foreground">{{ item.dosage }}</div>
@@ -90,7 +89,8 @@ const weekly = props.due.filter((item) => item.cadence === 'weekly');
                         :key="item.prescription_id"
                         class="flex items-center gap-3 rounded-xl border border-sidebar-border/70 p-3 dark:border-sidebar-border"
                     >
-                        <img :src="item.thumb" :alt="item.exercise_name" class="h-12 w-12 shrink-0 rounded-lg" />
+                        <img v-if="item.thumb" :src="item.thumb" :alt="item.exercise_name" class="h-12 w-12 shrink-0 rounded-lg" />
+                        <div v-else class="h-12 w-12 shrink-0 rounded-lg bg-muted" />
                         <div class="min-w-0 flex-1">
                             <div class="flex items-center justify-between gap-2">
                                 <div class="font-medium">{{ item.exercise_name }}</div>

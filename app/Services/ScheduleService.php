@@ -16,6 +16,19 @@ use Illuminate\Support\Facades\DB;
  *
  * Week boundary: ISO Monday — matches date_trunc('week') in v_weekly_completions
  * and the paper journal grid (spec §5). Decided 2026-07-08.
+ *
+ * Carry-over across revisions (CONTENT-ADMIN.md 1A): a revision mints new
+ * prescription ids, so completions are matched on exercise_id, not
+ * prescription_id — work done under a superseded version still counts.
+ *
+ *   v_daily_completions (user_id, planned_date, prescription_id, status, exercise_id)
+ *        │ done rows, this user
+ *        ├── today ──────────────► doneToday{exercise_id}          (daily dedupe)
+ *        └── this ISO week ─────► COUNT(DISTINCT planned_date)
+ *                                  GROUP BY exercise_id ──► daysDone{exercise_id}
+ *                                  (distinct dates ⇒ same-day work under two
+ *                                   versions counts once — the weekly grain
+ *                                   is computed here, not from v_weekly_completions)
  */
 final class ScheduleService
 {
@@ -27,24 +40,29 @@ final class ScheduleService
             return new Collection();
         }
 
-        $prescriptions = $version->prescriptions()->with('exercise')->get();
+        $prescriptions = $version->prescriptions()->with('exercise.media')->get();
 
         $doneToday = DB::table('v_daily_completions')
             ->where('user_id', $user->id)
             ->whereDate('planned_date', $date->toDateString())
             ->where('status', 'done')
-            ->pluck('prescription_id')
+            ->pluck('exercise_id')
             ->flip();
 
-        $daysDoneThisWeek = DB::table('v_weekly_completions')
-            ->whereIn('prescription_id', $prescriptions->pluck('id'))
-            ->whereDate('week_start', $date->startOfWeek(CarbonImmutable::MONDAY)->toDateString())
-            ->pluck('days_done', 'prescription_id');
+        $weekStart = $date->startOfWeek(CarbonImmutable::MONDAY);
+        $daysDoneThisWeek = DB::table('v_daily_completions')
+            ->where('user_id', $user->id)
+            ->where('status', 'done')
+            ->whereDate('planned_date', '>=', $weekStart->toDateString())
+            ->whereDate('planned_date', '<=', $weekStart->addDays(6)->toDateString())
+            ->groupBy('exercise_id')
+            ->selectRaw('exercise_id, COUNT(DISTINCT planned_date) AS days_done')
+            ->pluck('days_done', 'exercise_id');
 
         return $prescriptions
             ->map(fn (Prescription $p): ?DueItem => match ($p->frequency_kind) {
-                'daily' => $doneToday->has($p->id) ? null : new DueItem($p, 'daily', null),
-                'per_week' => $this->weeklyDue($p, $doneToday->has($p->id), (int) ($daysDoneThisWeek[$p->id] ?? 0)),
+                'daily' => $doneToday->has($p->exercise_id) ? null : new DueItem($p, 'daily', null),
+                'per_week' => $this->weeklyDue($p, $doneToday->has($p->exercise_id), (int) ($daysDoneThisWeek[$p->exercise_id] ?? 0)),
                 default => null, // as_needed: never scheduled
             })
             ->filter()

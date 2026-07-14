@@ -9,8 +9,6 @@ class ExerciseMedia extends Model
 {
     protected $table = 'exercise_media';
 
-    public $timestamps = false;
-
     protected $fillable = ['exercise_id', 'kind', 'url', 'uploaded_by', 'duration_sec', 'sort_order'];
 
     public function exercise(): BelongsTo

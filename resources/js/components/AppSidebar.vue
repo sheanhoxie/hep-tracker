@@ -3,12 +3,16 @@ import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/vue3';
-import { CalendarCheck, Dumbbell, History, LayoutGrid } from 'lucide-vue-next';
+import { type NavItem, type SharedData } from '@/types';
+import { Link, usePage } from '@inertiajs/vue3';
+import { CalendarCheck, ClipboardList, Dumbbell, History, LayoutGrid, Wrench } from 'lucide-vue-next';
+import { computed } from 'vue';
 import AppLogo from './AppLogo.vue';
 
-const mainNavItems: NavItem[] = [
+const page = usePage<SharedData>();
+const isManager = computed(() => ['practitioner', 'admin'].includes(page.props.auth.user.role));
+
+const patientNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: '/dashboard',
@@ -30,6 +34,21 @@ const mainNavItems: NavItem[] = [
         icon: History,
     },
 ];
+
+const adminNavItems: NavItem[] = [
+    {
+        title: 'Exercises',
+        href: '/admin/exercises',
+        icon: Wrench,
+    },
+    {
+        title: 'Program',
+        href: '/admin/program',
+        icon: ClipboardList,
+    },
+];
+
+const mainNavItems = computed<NavItem[]>(() => (isManager.value ? [...patientNavItems, ...adminNavItems] : patientNavItems));
 
 const footerNavItems: NavItem[] = [];
 </script>

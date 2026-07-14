@@ -19,7 +19,7 @@ final readonly class DueItem
             'prescription_id' => $this->prescription->id,
             'exercise_slug' => $this->prescription->exercise->slug,
             'exercise_name' => $this->prescription->exercise->canonical_name,
-            'thumb' => "/thumbs/{$this->prescription->exercise->slug}.svg",
+            'thumb' => $this->prescription->exercise->media->firstWhere('kind', 'image')?->url,
             'dosage' => $this->prescription->dosageSummary(),
             'cadence' => $this->cadence,
             'remaining_this_week' => $this->remainingThisWeek,

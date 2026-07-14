@@ -41,5 +41,16 @@ VIEW=$(sudo -u postgres psql -tA "$SCRATCH" -c "SELECT count(*) FROM v_weekly_co
 
 echo "exercises: $EX (expect 22)  set_events: $SE  v_weekly_completions rows: $VIEW"
 [ "$EX" -eq 22 ] || fail "exercise count $EX != 22"
+
+# media backup sanity (CONTENT-ADMIN.md 4A): every locally-hosted media URL in
+# the restored DB must have a matching object in the media backup
+LOCAL_URLS=$(sudo -u postgres psql -tA "$SCRATCH" -c "SELECT url FROM exercise_media WHERE url LIKE '/storage/%'")
+if [ -n "$LOCAL_URLS" ]; then
+    while IFS= read -r u; do
+        REL=${u#/storage/}
+        rclone lsf "$RCLONE_REMOTE/media/$REL" > /dev/null 2>&1 || fail "media missing from backup: $REL"
+    done <<< "$LOCAL_URLS"
+    echo "media objects verified: $(echo "$LOCAL_URLS" | wc -l | tr -d ' ')"
+fi
 [ -n "$HC_RESTORE_URL" ] && curl -fsS -m 10 "$HC_RESTORE_URL" > /dev/null 2>&1 || true
 echo "RESTORE TEST OK"

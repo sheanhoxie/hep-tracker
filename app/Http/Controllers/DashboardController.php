@@ -25,13 +25,20 @@ class DashboardController extends Controller
         if ($version !== null) {
             $weeklyPrescriptions = $version->prescriptions()
                 ->where('frequency_kind', 'per_week')->get();
-            $daysDone = DB::table('v_weekly_completions')
-                ->whereIn('prescription_id', $weeklyPrescriptions->pluck('id'))
-                ->whereDate('week_start', $today->startOfWeek(CarbonImmutable::MONDAY)->toDateString())
-                ->pluck('days_done', 'prescription_id');
+            // exercise_id grain, computed from the daily view: earned days
+            // survive a program revision (CONTENT-ADMIN.md 1A carry-over)
+            $weekStart = $today->startOfWeek(CarbonImmutable::MONDAY);
+            $daysDone = DB::table('v_daily_completions')
+                ->where('user_id', $user->id)
+                ->where('status', 'done')
+                ->whereDate('planned_date', '>=', $weekStart->toDateString())
+                ->whereDate('planned_date', '<=', $weekStart->addDays(6)->toDateString())
+                ->groupBy('exercise_id')
+                ->selectRaw('exercise_id, COUNT(DISTINCT planned_date) AS days_done')
+                ->pluck('days_done', 'exercise_id');
             $weekly = [
                 'done' => $weeklyPrescriptions->sum(
-                    fn ($p): int => min((int) ($daysDone[$p->id] ?? 0), (int) $p->times_per_week)
+                    fn ($p): int => min((int) ($daysDone[$p->exercise_id] ?? 0), (int) $p->times_per_week)
                 ),
                 'target' => (int) $weeklyPrescriptions->sum('times_per_week'),
             ];

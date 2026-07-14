@@ -18,7 +18,7 @@ beforeEach(function () {
 
 test('seeder builds the full entity chain', function () {
     $program = $this->patient->programs()->firstOrFail();
-    $version = $program->currentVersion;
+    $version = $program->currentVersion()->with('prescriptions.exercise')->firstOrFail();
 
     expect($version->version_no)->toBe(1)
         ->and($version->prescriptions)->toHaveCount(22)
@@ -111,4 +111,59 @@ test('observations require a session or item grain', function () {
         'kind' => 'pain',
         'numeric_value' => 3,
     ]))->toThrow(QueryException::class);
+});
+
+test('form_check media allows multiple rows per exercise and stamps timestamps', function () {
+    $exercise = App\Models\Exercise::where('slug', 'bridge-lift')->firstOrFail();
+
+    App\Models\ExerciseMedia::create([
+        'exercise_id' => $exercise->id,
+        'kind' => 'form_check',
+        'url' => '/storage/form-checks/a.mp4',
+        'uploaded_by' => $this->patient->id,
+    ]);
+    $second = App\Models\ExerciseMedia::create([
+        'exercise_id' => $exercise->id,
+        'kind' => 'form_check',
+        'url' => '/storage/form-checks/b.mp4',
+        'uploaded_by' => $this->patient->id,
+    ]);
+
+    expect($second->created_at)->not->toBeNull();
+});
+
+test('duplicate stock media per exercise and kind is rejected', function () {
+    $exercise = App\Models\Exercise::where('slug', 'bridge-lift')->firstOrFail();
+
+    // seeder already created the stock video row for this exercise;
+    // violation must be the last statement — it aborts the wrapped transaction
+    expect(fn () => App\Models\ExerciseMedia::create([
+        'exercise_id' => $exercise->id,
+        'kind' => 'video',
+        'url' => 'https://example.com/duplicate.mp4',
+    ]))->toThrow(QueryException::class);
+});
+
+test('v_daily_completions exposes exercise_id for cross-version carry-over', function () {
+    $version = $this->patient->programs()->firstOrFail()->currentVersion;
+    $prescription = $version->prescriptions->first();
+
+    $session = WorkoutSession::create([
+        'user_id' => $this->patient->id,
+        'program_version_id' => $version->id,
+        'planned_date' => today(),
+        'status' => 'active',
+    ]);
+    WorkoutSessionItem::create([
+        'workout_session_id' => $session->id,
+        'prescription_id' => $prescription->id,
+        'sort_order' => 0,
+        'status' => 'done',
+    ]);
+
+    $row = DB::table('v_daily_completions')
+        ->where('prescription_id', $prescription->id)->first();
+
+    expect($row->exercise_id)->toBe($prescription->exercise_id)
+        ->and($row->user_id)->toBe($this->patient->id);
 });
