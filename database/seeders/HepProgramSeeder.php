@@ -17,10 +17,9 @@ use Illuminate\Support\Facades\Hash;
 use RuntimeException;
 
 /**
- * Seeds the real the PT HEP (sample date) from program-source-document
- * Appendix A (database/seeders/data/hep-exercises.json).
+ * Seeds a sample home exercise program (database/seeders/data/hep-exercises.json).
  *
- * Per spec §6: all exercises into the library; one program + version 1;
+ * All exercises into the library; one program + version 1;
  * prescriptions for every exercise (unscheduled items get frequency_kind
  * 'as_needed' so they can be promoted in a later version). set_events are
  * never seeded — the log starts empty.

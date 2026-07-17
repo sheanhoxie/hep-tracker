@@ -12,7 +12,7 @@ Laravel 13 (PHP 8.4+) · Inertia 3 + Vue 3 · Postgres · Vite/Tailwind · Pest 
 
 ## Source of Truth
 
-`hep-data-model.md` is the design document. Read it before any schema or domain work. `program-source-document` is the authoritative program content (real the PT HEP, sample date): 22-exercise catalog with dosages, aliases, cues, and data gaps — machine-readable copy in `database/seeders/data/hep-exercises.json`, seeded by `HepProgramSeeder`. The entity chain:
+`hep-data-model.md` is the design document. Read it before any schema or domain work. `database/seeders/data/hep-exercises.json` holds a sample 22-exercise catalog with dosages, aliases, cues, and data gaps, seeded by `HepProgramSeeder`. The entity chain:
 
 **Exercise → Prescription → ProgramVersion → SessionPlan → SetEvent**
 
