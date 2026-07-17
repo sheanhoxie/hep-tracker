@@ -1,0 +1,27 @@
+{
+  "_license": "All video URLs are placeholder demo clips from the wger.de exercise database (CC-BY-SA) and Wikimedia Commons (CC-BY). Match quality varies; the UI labels them as placeholder demos.",
+  "videos": {
+    "heel-raise-eccentric": "https://upload.wikimedia.org/wikipedia/commons/1/16/Basic_single_leg_squat.webm",
+    "quadruped-leg-lift": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Squat_-_exercise_demonstration_video.webm",
+    "toe-yoga": "https://upload.wikimedia.org/wikipedia/commons/1/16/Basic_single_leg_squat.webm",
+    "cat-cow": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Squat_-_exercise_demonstration_video.webm",
+    "wall-sit": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Squat_-_exercise_demonstration_video.webm",
+    "dead-bug": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Squat_-_exercise_demonstration_video.webm",
+    "standing-calf-stretch": "https://upload.wikimedia.org/wikipedia/commons/1/16/Basic_single_leg_squat.webm",
+    "chin-tuck": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Squat_-_exercise_demonstration_video.webm",
+    "plank-ball": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Squat_-_exercise_demonstration_video.webm",
+    "standing-hip-abduction": "https://upload.wikimedia.org/wikipedia/commons/1/16/Basic_single_leg_squat.webm",
+    "eccentric-single-leg-squat": "https://upload.wikimedia.org/wikipedia/commons/1/16/Basic_single_leg_squat.webm",
+    "goblet-squat": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Squat_-_exercise_demonstration_video.webm",
+    "step-up": "https://upload.wikimedia.org/wikipedia/commons/1/16/Basic_single_leg_squat.webm",
+    "bridge-lift": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Squat_-_exercise_demonstration_video.webm",
+    "hamstring-stretch": "https://upload.wikimedia.org/wikipedia/commons/1/16/Basic_single_leg_squat.webm",
+    "ankle-circles": "https://upload.wikimedia.org/wikipedia/commons/1/16/Basic_single_leg_squat.webm",
+    "side-plank": "https://upload.wikimedia.org/wikipedia/commons/1/16/Basic_single_leg_squat.webm",
+    "clamshell": "https://upload.wikimedia.org/wikipedia/commons/1/16/Basic_single_leg_squat.webm",
+    "bird-dog": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Squat_-_exercise_demonstration_video.webm",
+    "seated-row-band": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Squat_-_exercise_demonstration_video.webm",
+    "single-leg-balance": "https://upload.wikimedia.org/wikipedia/commons/1/16/Basic_single_leg_squat.webm",
+    "farmer-carry": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Squat_-_exercise_demonstration_video.webm"
+  }
+}

@@ -1,0 +1,740 @@
+[
+  {
+    "slug": "heel-raise-eccentric",
+    "name": "Eccentric Heel Raise",
+    "aliases": [
+      "slow calf lower"
+    ],
+    "group": "daily",
+    "times_per_week": null,
+    "sets": 3,
+    "reps": 12,
+    "hold_sec": null,
+    "eccentric_sec": 6,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": true,
+    "to_fatigue": false,
+    "equipment": [
+      "step (optional)"
+    ],
+    "region": "ankle",
+    "pattern": "eccentric",
+    "laterality": "unilateral",
+    "cues": [
+      "rise fast, lower slow",
+      "full range"
+    ],
+    "form": [
+      "Set up in the starting position for the eccentric heel raise.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "quadruped-leg-lift",
+    "name": "Quadruped Leg Lift",
+    "aliases": [
+      "bird dog leg"
+    ],
+    "group": "daily",
+    "times_per_week": null,
+    "sets": 3,
+    "reps": 5,
+    "hold_sec": 5,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": true,
+    "to_fatigue": false,
+    "equipment": [],
+    "region": "hip",
+    "pattern": "stability",
+    "laterality": "alternating",
+    "cues": [
+      "level hips",
+      "no rotation"
+    ],
+    "form": [
+      "Set up in the starting position for the quadruped leg lift.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "toe-yoga",
+    "name": "Toe Yoga",
+    "aliases": [
+      "toe control drill"
+    ],
+    "group": "daily",
+    "times_per_week": null,
+    "sets": 3,
+    "reps": 15,
+    "hold_sec": 5,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": true,
+    "to_fatigue": false,
+    "equipment": [],
+    "region": "foot",
+    "pattern": "motor-control",
+    "laterality": "unilateral",
+    "cues": [
+      "big toe down, little toes up",
+      "arch tall"
+    ],
+    "form": [
+      "Set up in the starting position for the toe yoga.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "cat-cow",
+    "name": "Cat-Cow Stretch",
+    "aliases": [
+      "spine mobility"
+    ],
+    "group": "daily",
+    "times_per_week": null,
+    "sets": 2,
+    "reps": 10,
+    "hold_sec": null,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": false,
+    "to_fatigue": false,
+    "equipment": [],
+    "region": "spine",
+    "pattern": "mobility",
+    "laterality": "bilateral",
+    "cues": [
+      "slow and controlled",
+      "full range",
+      "steady breathing"
+    ],
+    "form": [
+      "Set up in the starting position for the cat-cow stretch.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "wall-sit",
+    "name": "Wall Sit",
+    "aliases": [
+      "wall hold"
+    ],
+    "group": "daily",
+    "times_per_week": null,
+    "sets": 3,
+    "reps": null,
+    "hold_sec": 30,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": 60,
+    "per_side": false,
+    "to_fatigue": false,
+    "equipment": [
+      "wall"
+    ],
+    "region": "knee",
+    "pattern": "isometric",
+    "laterality": "bilateral",
+    "cues": [
+      "back flat on wall",
+      "knees at 90"
+    ],
+    "form": [
+      "Set up in the starting position for the wall sit.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "dead-bug",
+    "name": "Dead Bug",
+    "aliases": [
+      "core drill"
+    ],
+    "group": "daily",
+    "times_per_week": null,
+    "sets": 2,
+    "reps": 10,
+    "hold_sec": null,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": 30,
+    "per_side": false,
+    "to_fatigue": false,
+    "equipment": [],
+    "region": "core",
+    "pattern": "stability",
+    "laterality": "alternating",
+    "cues": [
+      "low back down",
+      "slow limbs"
+    ],
+    "form": [
+      "Set up in the starting position for the dead bug.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "standing-calf-stretch",
+    "name": "Standing Calf Stretch",
+    "aliases": [
+      "calf wall stretch"
+    ],
+    "group": "daily",
+    "times_per_week": null,
+    "sets": 3,
+    "reps": null,
+    "hold_sec": 30,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": true,
+    "to_fatigue": false,
+    "equipment": [
+      "wall"
+    ],
+    "region": "ankle",
+    "pattern": "stretch",
+    "laterality": "unilateral",
+    "cues": [
+      "heel down",
+      "knee straight"
+    ],
+    "form": [
+      "Set up in the starting position for the standing calf stretch.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "chin-tuck",
+    "name": "Chin Tuck",
+    "aliases": [
+      "neck reset"
+    ],
+    "group": "daily",
+    "times_per_week": null,
+    "sets": 2,
+    "reps": 10,
+    "hold_sec": 3,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": false,
+    "to_fatigue": false,
+    "equipment": [],
+    "region": "neck",
+    "pattern": "motor-control",
+    "laterality": "bilateral",
+    "cues": [
+      "slow and controlled",
+      "full range",
+      "steady breathing"
+    ],
+    "form": [
+      "Set up in the starting position for the chin tuck.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "plank-ball",
+    "name": "Plank on Ball",
+    "aliases": [
+      "ball plank"
+    ],
+    "group": "weekly",
+    "times_per_week": 3,
+    "sets": 2,
+    "reps": null,
+    "hold_sec": 45,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": false,
+    "to_fatigue": false,
+    "equipment": [
+      "ball"
+    ],
+    "region": "core",
+    "pattern": "isometric",
+    "laterality": "bilateral",
+    "cues": [
+      "straight line",
+      "ribs down"
+    ],
+    "form": [
+      "Set up in the starting position for the plank on ball.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "standing-hip-abduction",
+    "name": "Standing Hip Abduction",
+    "aliases": [
+      "side leg raise"
+    ],
+    "group": "weekly",
+    "times_per_week": 3,
+    "sets": 3,
+    "reps": null,
+    "hold_sec": 30,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": true,
+    "to_fatigue": false,
+    "equipment": [
+      "loop band (optional)"
+    ],
+    "region": "hip",
+    "pattern": "strength",
+    "laterality": "unilateral",
+    "cues": [
+      "tall posture",
+      "toes forward"
+    ],
+    "form": [
+      "Set up in the starting position for the standing hip abduction.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "eccentric-single-leg-squat",
+    "name": "Eccentric Single Leg Squat",
+    "aliases": [
+      "slow pistol lower"
+    ],
+    "group": "weekly",
+    "times_per_week": 3,
+    "sets": 3,
+    "reps": 15,
+    "hold_sec": null,
+    "eccentric_sec": 6,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": true,
+    "to_fatigue": false,
+    "equipment": [
+      "chair (optional)"
+    ],
+    "region": "knee",
+    "pattern": "eccentric",
+    "laterality": "unilateral",
+    "cues": [
+      "knee tracks toes",
+      "slow descent"
+    ],
+    "form": [
+      "Set up in the starting position for the eccentric single leg squat.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "goblet-squat",
+    "name": "Goblet Squat",
+    "aliases": [
+      "cup squat"
+    ],
+    "group": "weekly",
+    "times_per_week": 3,
+    "sets": 3,
+    "reps": 10,
+    "hold_sec": null,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": 60,
+    "per_side": false,
+    "to_fatigue": false,
+    "equipment": [
+      "dumbbell or kettlebell"
+    ],
+    "region": "knee",
+    "pattern": "strength",
+    "laterality": "bilateral",
+    "cues": [
+      "chest tall",
+      "sit between hips"
+    ],
+    "form": [
+      "Set up in the starting position for the goblet squat.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "step-up",
+    "name": "Step Up",
+    "aliases": [
+      "box step"
+    ],
+    "group": "weekly",
+    "times_per_week": 3,
+    "sets": 3,
+    "reps": 8,
+    "hold_sec": null,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": 60,
+    "per_side": true,
+    "to_fatigue": false,
+    "equipment": [
+      "step or box"
+    ],
+    "region": "knee",
+    "pattern": "strength",
+    "laterality": "unilateral",
+    "cues": [
+      "drive through heel",
+      "control the lower"
+    ],
+    "form": [
+      "Set up in the starting position for the step up.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "bridge-lift",
+    "name": "Bridge Lift",
+    "aliases": [
+      "glute bridge"
+    ],
+    "group": "unscheduled",
+    "times_per_week": null,
+    "sets": 3,
+    "reps": 5,
+    "hold_sec": 5,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": false,
+    "to_fatigue": false,
+    "equipment": [],
+    "region": "hip",
+    "pattern": "strength",
+    "laterality": "bilateral",
+    "cues": [
+      "squeeze glutes",
+      "ribs down"
+    ],
+    "form": [
+      "Set up in the starting position for the bridge lift.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "hamstring-stretch",
+    "name": "Hamstring Stretch",
+    "aliases": [
+      "strap stretch"
+    ],
+    "group": "unscheduled",
+    "times_per_week": null,
+    "sets": 2,
+    "reps": null,
+    "hold_sec": 30,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": true,
+    "to_fatigue": false,
+    "equipment": [
+      "strap (optional)"
+    ],
+    "region": "hip",
+    "pattern": "stretch",
+    "laterality": "unilateral",
+    "cues": [
+      "slow and controlled",
+      "full range",
+      "steady breathing"
+    ],
+    "form": [
+      "Set up in the starting position for the hamstring stretch.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "ankle-circles",
+    "name": "Ankle Circles",
+    "aliases": [
+      "ankle mobility"
+    ],
+    "group": "unscheduled",
+    "times_per_week": null,
+    "sets": 2,
+    "reps": 10,
+    "hold_sec": null,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": true,
+    "to_fatigue": false,
+    "equipment": [],
+    "region": "ankle",
+    "pattern": "mobility",
+    "laterality": "unilateral",
+    "cues": [
+      "slow and controlled",
+      "full range",
+      "steady breathing"
+    ],
+    "form": [
+      "Set up in the starting position for the ankle circles.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "side-plank",
+    "name": "Side Plank",
+    "aliases": [
+      "lateral plank"
+    ],
+    "group": "unscheduled",
+    "times_per_week": null,
+    "sets": 2,
+    "reps": null,
+    "hold_sec": 20,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": true,
+    "to_fatigue": false,
+    "equipment": [
+      "pad (optional)"
+    ],
+    "region": "core",
+    "pattern": "isometric",
+    "laterality": "unilateral",
+    "cues": [
+      "straight line",
+      "hips high"
+    ],
+    "form": [
+      "Set up in the starting position for the side plank.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "clamshell",
+    "name": "Clamshell",
+    "aliases": [
+      "side-lying clam"
+    ],
+    "group": "unscheduled",
+    "times_per_week": null,
+    "sets": null,
+    "reps": null,
+    "hold_sec": null,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": true,
+    "to_fatigue": false,
+    "equipment": [
+      "loop band (optional)"
+    ],
+    "region": "hip",
+    "pattern": "strength",
+    "laterality": "unilateral",
+    "cues": [
+      "slow and controlled",
+      "full range",
+      "steady breathing"
+    ],
+    "form": [
+      "Set up in the starting position for the clamshell.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": "Dosage set by your clinician."
+  },
+  {
+    "slug": "bird-dog",
+    "name": "Bird Dog",
+    "aliases": [
+      "opposite arm-leg reach"
+    ],
+    "group": "unscheduled",
+    "times_per_week": null,
+    "sets": null,
+    "reps": null,
+    "hold_sec": null,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": false,
+    "to_fatigue": false,
+    "equipment": [],
+    "region": "core",
+    "pattern": "stability",
+    "laterality": "alternating",
+    "cues": [
+      "slow and controlled",
+      "full range",
+      "steady breathing"
+    ],
+    "form": [
+      "Set up in the starting position for the bird dog.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": "Dosage set by your clinician."
+  },
+  {
+    "slug": "seated-row-band",
+    "name": "Seated Band Row",
+    "aliases": [
+      "band row"
+    ],
+    "group": "unscheduled",
+    "times_per_week": null,
+    "sets": 3,
+    "reps": 12,
+    "hold_sec": null,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": 60,
+    "per_side": false,
+    "to_fatigue": false,
+    "equipment": [
+      "resistance band"
+    ],
+    "region": "back",
+    "pattern": "strength",
+    "laterality": "bilateral",
+    "cues": [
+      "slow and controlled",
+      "full range",
+      "steady breathing"
+    ],
+    "form": [
+      "Set up in the starting position for the seated band row.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "single-leg-balance",
+    "name": "Single Leg Balance",
+    "aliases": [
+      "balance hold"
+    ],
+    "group": "unscheduled",
+    "times_per_week": null,
+    "sets": 3,
+    "reps": null,
+    "hold_sec": null,
+    "eccentric_sec": null,
+    "duration_sec": 30,
+    "rest_sec": null,
+    "per_side": true,
+    "to_fatigue": false,
+    "equipment": [],
+    "region": "ankle",
+    "pattern": "balance",
+    "laterality": "unilateral",
+    "cues": [
+      "soft knee",
+      "quiet foot"
+    ],
+    "form": [
+      "Set up in the starting position for the single leg balance.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": null
+  },
+  {
+    "slug": "farmer-carry",
+    "name": "Farmer Carry",
+    "aliases": [
+      "loaded walk"
+    ],
+    "group": "unscheduled",
+    "times_per_week": null,
+    "sets": null,
+    "reps": null,
+    "hold_sec": null,
+    "eccentric_sec": null,
+    "duration_sec": null,
+    "rest_sec": null,
+    "per_side": false,
+    "to_fatigue": false,
+    "equipment": [
+      "dumbbells"
+    ],
+    "region": "full-body",
+    "pattern": "strength",
+    "laterality": "bilateral",
+    "cues": [
+      "slow and controlled",
+      "full range",
+      "steady breathing"
+    ],
+    "form": [
+      "Set up in the starting position for the farmer carry.",
+      "Move slowly and with control through the full range.",
+      "Keep the core braced and breathe steadily.",
+      "Return to the start position and repeat."
+    ],
+    "notes": "Dosage set by your clinician."
+  }
+]

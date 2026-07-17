@@ -25,7 +25,7 @@ Decided 2026-07-08 via /plan-eng-review (3 review questions + adversarial outsid
 ## v1 sequencing
 
 1. Laravel scaffold + migrations (order per data model doc §Migration-order)
-2. Seeder transcribing the PT's sample date PDF into exercises + program_version + prescriptions
+2. Seeder loading the sample program into exercises + program_version + prescriptions
 3. Scheduler ("what's due today") as pure function + Pest tests
 4. Session player island (Vitest for state machine, Playwright happy path)
 5. PWA manifest + service worker + web push reminders

@@ -93,7 +93,7 @@ and the session player can show *her own* correct form next to the stock video.
 ## 3. Programs & prescriptions (assignment domain)
 
 The versioning core. A `program` is the stable identity ("Patient's knee rehab");
-a `program_version` is one dated revision of it (the PT's sample date PDF). Prescriptions
+a `program_version` is one dated revision of it (e.g. a clinician's dated handout). Prescriptions
 hang off the *version* and are never edited in place — a revision creates a new
 version with copied-then-modified rows. History stays intact for "what was I
 doing in June?"
@@ -111,7 +111,7 @@ CREATE TABLE program_versions (
     id              BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     program_id      BIGINT NOT NULL REFERENCES programs(id),
     version_no      INT NOT NULL,
-    source_note     TEXT,                          -- 'the PT HEP, sample date'
+    source_note     TEXT,                          -- 'Clinic handout, Jan 2026'
     effective_from  DATE NOT NULL,
     effective_to    DATE,                          -- NULL = current
     created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),

@@ -5,10 +5,10 @@
 Ordered path. Each phase is shippable/testable on its own. Matches v1 sequencing in stack-decisions.md.
 
 ### Phase 1 — Real data — DONE 2026-07-09
-- [x] Transcribe the real the PT HEP into the seeder — done 2026-07-08 from `program-source-document` Appendix A (22 exercises → `database/seeders/data/hep-exercises.json`)
+- [x] Sample 22-exercise program in `database/seeders/data/hep-exercises.json`
 - [x] Patient's aliases + stock cues seeded
 - [x] Stock video URLs seeded as placeholders (2026-07-09): wger.de (CC-BY-SA) + Wikimedia Commons (CC-BY) direct URLs in `database/seeders/data/hep-media.json`, mapped by exercise slug; SVG pictogram thumbnails generated to `public/thumbs/{slug}.svg`
-- [ ] DEFERRED: PT verification of VERIFY/DATA GAP items with the PT (spec §5, preserved in `prescriptions.notes`): exercise-q steps per direction, hip-abduction 'up to 20' conflict, exercise-r sets, dosages for squat-w/-ball, bridge-walk, exercise-s, exercise-o, exercise-p; confirm inferred forms (balance swing, toe yoga, heel tap) — user chose to skip and update hardcoded assets later
+- [ ] DEFERRED: clinician verification of any dosage gaps (tracked in `prescriptions.notes`)
 
 ### Phase 2 — Scheduler (what's due today) — DONE 2026-07-09
 - [x] `ScheduleService::dueOn()` — pure read over prescriptions + completion views (app/Services/)

@@ -115,8 +115,8 @@ class HepProgramSeeder extends Seeder
         $version = ProgramVersion::firstOrCreate(
             ['program_id' => $program->id, 'version_no' => 1],
             [
-                'source_note' => 'the PT HEP, sample date',
-                'effective_from' => '2026-06-18',
+                'source_note' => 'Sample program v1',
+                'effective_from' => '2026-01-05',
             ],
         );
 
