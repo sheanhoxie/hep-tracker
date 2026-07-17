@@ -37,7 +37,7 @@ test('seeder builds the full entity chain', function () {
 
 test('aliases resolve to exercises', function () {
     $alias = ExerciseAlias::where('user_id', $this->patient->id)
-        ->where('alias', 'sample alias')->firstOrFail();
+        ->where('alias', 'side leg raise')->firstOrFail();
 
     expect($alias->exercise->slug)->toBe('standing-hip-abduction')
         ->and($alias->is_display_name)->toBeTrue();

@@ -116,7 +116,7 @@ class HepProgramSeeder extends Seeder
             ['program_id' => $program->id, 'version_no' => 1],
             [
                 'source_note' => 'Sample program v1',
-                'effective_from' => '2026-01-05',
+                'effective_from' => '2026-06-15',
             ],
         );
 
